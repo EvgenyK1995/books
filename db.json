@@ -1,0 +1,61 @@
+{
+  "books": [
+    {
+      "name": "Математика",
+      "classBook": "4",
+      "id": 1
+    },
+    {
+      "name": "Русский язык",
+      "classBook": "6",
+      "id": 3
+    },
+    {
+      "name": "Английский язык",
+      "classBook": "7",
+      "id": 4
+    },
+    {
+      "name": "Немецкий язык",
+      "classBook": "1",
+      "id": 5
+    },
+    {
+      "name": "Французский язык",
+      "classBook": "7",
+      "id": 6
+    },
+    {
+      "name": "Алгебра",
+      "classBook": "6",
+      "id": 7
+    },
+    {
+      "name": "Китайский язык",
+      "classBook": "9",
+      "id": 8
+    },
+    {
+      "name": "Природоведениe",
+      "classBook": "5",
+      "id": 9
+    }
+  ],
+  "users": [
+    {
+      "name": "test",
+      "pass": "qwe",
+      "id": 0
+    },
+    {
+      "name": "test1",
+      "pass": "qwe",
+      "id": 1
+    },
+    {
+      "name": "test2",
+      "pass": "123",
+      "id": 2
+    }
+  ]
+}
