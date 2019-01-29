@@ -8,7 +8,9 @@
             <div class="book-img"></div>
             <p><strong>Класс: </strong>{{ book.classBook }}</p>
         </div>
-        <button @click="showEditPanel = !showEditPanel">Редактировать</button>
+        <button v-if="canEditBook()" @click="showEditPanel = !showEditPanel">
+            Редактировать
+        </button>
         <div v-if="showEditPanel">
             <edit-form v-on:changesOK="UpdateParams"></edit-form>
         </div>
@@ -20,6 +22,7 @@
 <script>
 import ax from 'axios';
 import editForm from './editBook';
+import store from '../store/index';
 
 export default {
   name: 'book',
@@ -32,6 +35,11 @@ export default {
       showEditPanel: false,
     };
   },
+  computed: {
+    userLogined() {
+      return store.state.user !== null;
+    },
+  },
   methods: {
     GetBook() {
       const id = this.$route.params.bookId;
@@ -42,6 +50,9 @@ export default {
       this.GetBook();
       this.showMessage = true;
       this.showEditPanel = false;
+    },
+    canEditBook() {
+      return (this.userLogined && this.book.user === store.state.user);
     },
   },
   mounted() {

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <button @click="showFormAddBook = !showFormAddBook">Добавить книгу</button><br />
+        <button class="btn" v-if="userLogined" @click="showFormAddBook = !showFormAddBook">
+            Добавить книгу
+        </button><br />
         <div class="formAddBook" v-if="showFormAddBook">
             <div class="form-element">
                 <label for="nameField">Название книги:</label>
@@ -25,12 +27,13 @@
             }}">
                 подробнее
             </router-link>
-            <button @click="DeleteBook(item.id)">удалить</button>
+            <button v-if="canDeleteBook(item.user)" @click="DeleteBook(item.id)">удалить</button>
         </div>
     </div>
 </template>
 <script>
 import ax from 'axios';
+import store from '../store/index';
 
 export default {
   name: 'books',
@@ -42,9 +45,14 @@ export default {
       formFieldClass: '',
     };
   },
+  computed: {
+    userLogined() {
+      return store.state.user !== null;
+    },
+  },
   methods: {
     AddBook() {
-      ax.post('http://localhost:3000/books', { name: this.formFieldName, classBook: this.formFieldClass })
+      ax.post('http://localhost:3000/books', { name: this.formFieldName, classBook: this.formFieldClass, user: store.state.user })
         .then(() => {
           this.formFieldName = '';
           this.formFieldClass = '';
@@ -59,6 +67,9 @@ export default {
     DeleteBook(id) {
       ax.delete(`http://localhost:3000/books/${id}`)
         .then(() => this.UpdateBooks());
+    },
+    canDeleteBook(id) {
+      return (this.userLogined) && (id === store.state.user);
     },
   },
   mounted() {
@@ -99,5 +110,15 @@ export default {
     margin: 20px auto;
     text-align: right;
     width: 350px;
+}
+.btn {
+    background-color: #dbe7ff;
+    border: 2px solid #8293ff;
+    border-radius: 3px;
+    color: #424242;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-transform: uppercase;
 }
 </style>

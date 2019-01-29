@@ -32,7 +32,7 @@ export default {
     signIn() {
       const exist = this.users.find(user => user.name === this.fieldName);
 
-      if (exist.name === this.fieldName && exist.pass === this.fieldPassword) {
+      if (exist && exist.pass === this.fieldPassword) {
         this.message = '';
         store.commit('USER_REGISTRATION', exist.id);
         this.$emit('userRegistered');
